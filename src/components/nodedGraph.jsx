@@ -1,30 +1,46 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 
 function random(val) {
   return Math.floor(Math.random() * val);
 }
+
 const connections = [];
-function genRandomTree(N = 24, fixedNodeId = 0) {
-  // const students = [
-  //   "Ahmed",
-  //   "Ali",
-  //   "Arslan",
-  //   "Abdullah",
-  //   "Qasim",
-  //   "Hamza",
-  //   "Hammad"
-  // ];
-  const semester = [
-    { name: "Sem1", node: "Norway", link: 0 },
-    { name: "Sem2", node: ["Spain", "France"], link: [1, 2] },
-    { name: "Sem3", node: ["Finland", "Norway"], link: [3, 0] }
+
+function genRandomTree(N = 24) {
+  const students = [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "David",
+    "Eve",
+    "Frank",
+    "Grace",
+    "Henry",
+    "Isabella",
+    "Jack",
+    "Katherine",
+    "Liam",
+    "Mia",
+    "Noah",
+    "Olivia",
+    "Penny",
+    "Quentin",
+    "Ruby",
+    "Samuel",
+    "Tara"
   ];
 
-  const nodes = [...Array(N).keys()].map((i) => ({ id: i }));
+  const semester = [
+    { name: "Sem1", node: "Norway", link: 20 },
+    { name: "Sem2", node: ["Spain", "France"], link: [21, 22] },
+    { name: "Sem3", node: ["Finland", "Norway"], link: [23, 20] }
+  ];
+
+  const nodes = [...Array(N).keys()].map((i) => ({ id: i, student: students[i] }));
   const links = [];
 
-  for (let i = 4; i < N; i++) {
+  for (let i = 0; i < 20; i++) {
     links.push({ source: i, target: semester[0].link });
 
     let num = random(semester[1].link.length);
@@ -43,34 +59,60 @@ function genRandomTree(N = 24, fixedNodeId = 0) {
       n3: semester[2].link[num2]
     });
   }
+
   console.log(connections);
+
   return { nodes, links };
 }
 
-export default function NodedGraph() {
+export default function App() {
   const fgRef = useRef();
+  const [selectedNode, setSelectedNode] = useState(null);
 
-  const data = genRandomTree(24, 0);
+  const data = genRandomTree(24);
   const distance = 1900;
+
+  const handleNodeClick = (node) => {
+    setSelectedNode(node);
+  };
 
   const CameraOrbit = () => {
     return (
       <ForceGraph3D
         ref={fgRef}
         graphData={data}
-        nodeLabel={(node) => `${node.index}`} // Display node names
-        // linkLabel={(link) => `Link ${link.index}`} // Generate link labels
+        nodeLabel={(node) => `${node.student}`} // Display student names
         linkDirectionalParticleColor={() => "red"}
         linkDirectionalParticleWidth={6}
         linkHoverPrecision={10}
+        onNodeClick={handleNodeClick} // Update event handler for node click
         onLinkClick={(link) => fgRef.current.emitParticle(link)}
       />
     );
   };
 
   return (
-    <>
+    <div className="App">
+      {selectedNode && (
+        <div>
+          <h2>Selected Node: {selectedNode.student}</h2>
+          <h3>Links:</h3>
+          <ul>
+            {connections.map((connection) => {
+              if ( connection.id === selectedNode.id ) {
+                return (
+                  <li key={connection.id}>
+                    Link {connection.id}: {connection.n1}, {connection.n2},{" "}
+                    {connection.n3}
+                  </li>
+                );
+              }
+              return null;
+            })}
+          </ul>
+        </div>
+      )}
       <CameraOrbit />
-    </>
+    </div>
   );
 }
