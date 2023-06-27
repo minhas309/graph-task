@@ -1,4 +1,5 @@
 import { Button, Typography, Box } from "@mui/material";
+import NodedGraph from "../components/nodedGraph";
 
 const Homepage = () => {
     return (
@@ -11,22 +12,22 @@ const Homepage = () => {
             <Button >Graph 2</Button>
 
             <Box
-            height={500}
             sx={{
-                backgroundColor:"gray",
                 flexGrow: 1, display: { xs: "flex", md: "none" },
                 m:3,            
             }}
-            ></Box>
+             >
+            <NodedGraph />
+             </Box>
 
-<Box
-            height={500}
+            <Box
             sx={{
-                backgroundColor:"gray",
                 flexGrow: 1, display: { lg: "flex", md: "none" },
                 m:3,           
             }}
-            ></Box>
+            >
+            <NodedGraph />
+            </Box>
 
 
         </div>
