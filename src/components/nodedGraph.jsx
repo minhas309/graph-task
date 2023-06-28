@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import ForceGraph3D from "react-force-graph-3d";
+import { Info } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 
 function random(val) {
   return Math.floor(Math.random() * val);
@@ -75,8 +77,6 @@ function genRandomTree(N = 24) {
     });
   }
 
-  console.log(Connections);
-
   return { nodes, links };
 }
 
@@ -89,6 +89,7 @@ export default function NodedGraph() {
 
   const handleNodeClick = (node) => {
     setSelectedNode(node);
+    alert("Told you not to click over it in caps!!!!!!! The feature is not fully implimented just yet. Mean while you can checkout the other graph :) Sorry for inconvinience")
   };
 
   const CameraOrbit = () => {
@@ -107,6 +108,24 @@ export default function NodedGraph() {
 
   return (
     <div>
+       <div style={{ marginTop: "10px" }}>
+          <Tooltip title="Notable Info" placement="top">
+            <div
+              style={{
+                backgroundColor: "rgba(25, 118, 210, 0.8)",
+                borderRadius: "5px",
+                color: "#fff",
+                padding: "5px 10px",
+                display: "flex",
+                width:"max-content",
+                marginBottom:"20px"
+              }}
+            >
+            <Info style={{ marginRight: "5px" }} /> Zoon-in a little and hover over some Node but DO NOT CLICK OVER IT!!! 
+            </div>
+          </Tooltip>
+        </div>
+
       <CameraOrbit />
     </div>
   );

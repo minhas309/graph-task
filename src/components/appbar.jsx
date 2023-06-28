@@ -65,6 +65,7 @@ function ResponsiveAppBar() {
               letterSpacing: '.3rem',
               color: 'Black',
               textDecoration: 'none',
+              ml:2
             }}
             >
             SOME COOL SITE NAME
