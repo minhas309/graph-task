@@ -1,9 +1,10 @@
 import { Button, Typography, Box } from "@mui/material";
 import NodedGraph from "../components/nodedGraph";
+import Timeline from "../components/timelineGraph";
 
 const Homepage = () => {
     return (
-        <div style={{ marginLeft: "20px" }}>
+        <div >
             <Typography variant="h1">HomePage</Typography>
 
             <Typography variant="h2">Information about cool home page</Typography>
@@ -14,21 +15,23 @@ const Homepage = () => {
             <Box
             sx={{
                 flexGrow: 1, display: { xs: "flex", md: "none" },
-                m:3,            
+                m:3            
             }}
              >
             <NodedGraph />
+            <Timeline/>
              </Box>
 
             <Box
             sx={{
-                flexGrow: 1, display: { lg: "flex", md: "none" },
+                flexGrow: 1, display: { md: "flex", xs: "none" },
                 m:3,           
             }}
             >
             <NodedGraph />
-            </Box>
 
+            </Box>
+            <Timeline/>
 
         </div>
     );

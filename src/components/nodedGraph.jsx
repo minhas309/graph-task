@@ -5,67 +5,82 @@ function random(val) {
   return Math.floor(Math.random() * val);
 }
 
-const connections = [];
+
+export const Connections = [];
+export const Semester = [
+  { name: "Sem1", node: "Norway", link: 20 },
+  { name: "Sem2", node: ["Spain", "France"], link: [21, 22] },
+  { name: "Sem3", node: ["Finland", "Norway"], link: [23, 20] }
+];
+export const Students = [
+  "Alice",
+  "Bob",
+  "Charlie",
+  "David",
+  "Eve",
+  "Frank",
+  "Grace",
+  "Henry",
+  "Isabella",
+  "Jack",
+  "Katherine",
+  "Liam",
+  "Mia",
+  "Noah",
+  "Olivia",
+  "Penny",
+  "Quentin",
+  "Ruby",
+  "Samuel",
+  "Tara"
+];
+
 
 function genRandomTree(N = 24) {
-  const students = [
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Eve",
-    "Frank",
-    "Grace",
-    "Henry",
-    "Isabella",
-    "Jack",
-    "Katherine",
-    "Liam",
-    "Mia",
-    "Noah",
-    "Olivia",
-    "Penny",
-    "Quentin",
-    "Ruby",
-    "Samuel",
-    "Tara"
-  ];
 
-  const semester = [
-    { name: "Sem1", node: "Norway", link: 20 },
-    { name: "Sem2", node: ["Spain", "France"], link: [21, 22] },
-    { name: "Sem3", node: ["Finland", "Norway"], link: [23, 20] }
-  ];
+  
+  const dest = [
+    "Norway",
+    "Spain",
+    "France",
+    "Finland",
+  ]
 
-  const nodes = [...Array(N).keys()].map((i) => ({ id: i, student: students[i] }));
+  const nodes = [...Array(N).keys()].map((i) => {
+    if (i < 20) {
+      return { id: i, student: Students[i] };
+    } else {
+      return { id: i, dest: dest[i - 20] };
+    }
+  });
   const links = [];
 
   for (let i = 0; i < 20; i++) {
-    links.push({ source: i, target: semester[0].link });
+    links.push({ source: i, target: Semester[0].link });
 
-    let num = random(semester[1].link.length);
-    links.push({ source: semester[0].link, target: semester[1].link[num] });
+    let num = random(Semester[1].link.length);
+    links.push({ source: Semester[0].link, target: Semester[1].link[num] });
 
-    let num2 = random(semester[2].link.length);
+    let num2 = random(Semester[2].link.length);
     links.push({
-      source: semester[1].link[num],
-      target: semester[2].link[num2]
+      source: Semester[1].link[num],
+      target: Semester[2].link[num2]
     });
 
-    connections.push({
+    Connections.push({
       id: i,
-      n1: semester[0].link,
-      n2: semester[1].link[num],
-      n3: semester[2].link[num2]
+      n1: Semester[0].link,
+      n2: Semester[1].link[num],
+      n3: Semester[2].link[num2]
     });
   }
 
-  console.log(connections);
+  console.log(Connections);
 
   return { nodes, links };
 }
 
-export default function App() {
+export default function NodedGraph() {
   const fgRef = useRef();
   const [selectedNode, setSelectedNode] = useState(null);
 
@@ -81,8 +96,7 @@ export default function App() {
       <ForceGraph3D
         ref={fgRef}
         graphData={data}
-        nodeLabel={(node) => `${node.student}`} // Display student names
-        linkDirectionalParticleColor={() => "red"}
+        nodeLabel={(node) => node.student || node.dest}
         linkDirectionalParticleWidth={6}
         linkHoverPrecision={10}
         onNodeClick={handleNodeClick} // Update event handler for node click
@@ -92,26 +106,7 @@ export default function App() {
   };
 
   return (
-    <div className="App">
-      {selectedNode && (
-        <div>
-          <h2>Selected Node: {selectedNode.student}</h2>
-          <h3>Links:</h3>
-          <ul>
-            {connections.map((connection) => {
-              if ( connection.id === selectedNode.id ) {
-                return (
-                  <li key={connection.id}>
-                    Link {connection.id}: {connection.n1}, {connection.n2},{" "}
-                    {connection.n3}
-                  </li>
-                );
-              }
-              return null;
-            })}
-          </ul>
-        </div>
-      )}
+    <div>
       <CameraOrbit />
     </div>
   );

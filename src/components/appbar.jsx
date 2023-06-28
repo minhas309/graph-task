@@ -31,7 +31,6 @@ function ResponsiveAppBar() {
             component="a"
             href=""
             sx={{
-              mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontFamily: "monospace",
@@ -53,14 +52,13 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
           </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
-              mr: 2,
-              ml:10,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -68,9 +66,10 @@ function ResponsiveAppBar() {
               color: 'Black',
               textDecoration: 'none',
             }}
-          >
+            >
             SOME COOL SITE NAME
           </Typography>
+            </Box>
 
         </Toolbar>
       </Container>
