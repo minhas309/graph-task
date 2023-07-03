@@ -4,7 +4,6 @@ import { Info } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import ConnectionGraph from "./singleGraph";
 
-
 function random(val) {
   return Math.floor(Math.random() * val);
 }
@@ -51,13 +50,11 @@ export default function NodedGraph() {
   const [selectedConnection, setSelectedConnection] = useState(null);
 
   function genRandomTree(N = 24) {
-
-
     const nodes = [...Array(N).keys()].map((i) => {
       if (i < 20) {
-        return { id: i, student: Students[i] };
+        return { id: i, student: Students[i], type: "student" };
       } else {
-        return { id: i, dest: Dest[i - 20] };
+        return { id: i, dest: Dest[i - 20], type: "dest" };
       }
     });
 
@@ -105,8 +102,10 @@ export default function NodedGraph() {
         ref={fgRef}
         graphData={data}
         nodeLabel={(node) => node.student || node.dest}
+        nodeColor={(node) => node.type === "student" ? "#61dafb" : "#ff9800"} // Change colors here
         linkDirectionalParticleWidth={6}
         linkHoverPrecision={10}
+        backgroundColor="#222222" // Change background color here
         onNodeClick={handleNodeClick}
         onLinkClick={(link) => fgRef.current.emitParticle(link)}
       />

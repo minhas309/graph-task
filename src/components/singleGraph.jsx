@@ -39,7 +39,7 @@ export default function ConnectionGraph({ connection }) {
       graphData={data}
       nodeLabel={(node) => node.student || node.dest}
       backgroundColor="black" 
-      nodeColor={(node) => (node.student ? "#ffffff" : "#ffcc00")} 
+      nodeColor={(node) => (node.student ? "#61dafb" : "#ff9800")}
       linkColor={() => "#ffffff"} 
       linkDirectionalArrowColor={() => "#ffffff"} 
       linkDirectionalParticleColor={() => "#ffffff"} 
