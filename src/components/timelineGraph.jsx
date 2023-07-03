@@ -124,9 +124,9 @@ export default function Timeline() {
           values={VALUES}
           getLabel={(value, index) => {
             const semesterNames = [
-              "First Semester",
-              "Second Semester",
-              "Third Semester",
+              "1st Sem",
+              "2nd Sem",
+              "3rd Sem",
             ];
             return semesterNames[index];
           }}

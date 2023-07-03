@@ -1,3 +1,4 @@
+//Homepage component
 import { Button, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import NodedGraph from "../components/nodedGraph";
@@ -16,11 +17,10 @@ const Homepage = () => {
 
   return (
     <div style={{
-        margin:"20px"
     }}>
-      <Typography variant="h1">HomePage</Typography>
+      <Typography sx={{ typography: { md: 'h1', xs: 'h1' } }}>Home Page</Typography>
 
-      <Typography variant="h2">Information about cool home page</Typography>
+      <Typography sx={{ typography: { md: 'h2', xs: 'h2' } }}>Information about cool home page</Typography>
 
       <Button
         variant="contained"
@@ -58,9 +58,9 @@ const Homepage = () => {
         }}
       >
         {activeGraph === "nodedGraph" && <NodedGraph />}
+        {activeGraph === "timeline" && <Timeline />}
       </Box>
 
-      {activeGraph === "timeline" && <Timeline />}
     </div>
   );
 };

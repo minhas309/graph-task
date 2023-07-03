@@ -1,3 +1,4 @@
+//nodedGraph component
 import React, { useRef, useState } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import { Info } from "@mui/icons-material";
@@ -83,6 +84,11 @@ export default function NodedGraph() {
     return { nodes, links };
   }
 
+
+  const handleBack = () => {
+    setSelectedConnection(null)
+  }
+
   const data = genRandomTree(24);
   const distance = 1900;
 
@@ -133,7 +139,7 @@ export default function NodedGraph() {
       </div>
 
       {selectedConnection ? (
-        <ConnectionGraph connection={selectedConnection} />
+        <ConnectionGraph connection={selectedConnection} onBack={handleBack} />
       ) : (
         <CameraOrbit />
       )}
