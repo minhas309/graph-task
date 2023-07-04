@@ -20,7 +20,13 @@ export default function Timeline() {
     setAnchorEl(null);
   };
 
-  const VALUES = ["01", "02", "03"];
+  // Updated VALUES array to have three values at constant distance
+  const VALUES = [0, 1, 2];
+
+  const getLabel = (value, index) => {
+    const semesterNames = ["1st Sem", "2nd Sem", "3rd Sem"];
+    return semesterNames[value];
+  };
 
   const description = [
     "First Semester: " + dest1,
@@ -28,19 +34,10 @@ export default function Timeline() {
     "Third Semester: " + dest3,
   ];
 
-  const handleFirstStudentClick = () => {
-    const firstStudentConnection = Connections[Connections.length - 20];
-    setBtnName(Students[firstStudentConnection.id]);
-    setDest1(Semester[0].node);
-    setDest2(Semester[1].node[firstStudentConnection.n2 === 21 ? 0 : 1]);
-    setDest3(Semester[2].node[firstStudentConnection.n3 === 23 ? 0 : 1]);
-    handleClose();
-  };
-
   return (
     <div
       style={{
-        width: "40%",
+        width: "50%",
         padding: "10px",
         marginLeft: "150px",
         marginBottom: "50px",
@@ -69,14 +66,17 @@ export default function Timeline() {
                 color: "#fff",
                 padding: "5px 10px",
                 display: "flex",
-                width:"max-content",
-                marginBottom:"20px"
+                width: "max-content",
+                marginBottom: "20px",
               }}
             >
-            <Info style={{ marginRight: "5px" }} /> Select Student From Dropdown menu to see the destination
+              <Info style={{ marginRight: "5px" }} /> Select Student From
+              Dropdown menu to see the destination
             </div>
           </Tooltip>
         </div>
+
+        {/* Dropdown menu renders here */}
 
         <Menu
           id="demo-positioned-menu"
@@ -102,8 +102,12 @@ export default function Timeline() {
                   setBtnName(Students[connection.id]);
                   handleClose();
                   setDest1(Semester[0].node);
-                  setDest2(Semester[1].node[connection.n2 === 21 ? 0 : 1]);
-                  setDest3(Semester[2].node[connection.n3 === 23 ? 0 : 1]);
+                  setDest2(
+                    Semester[1].node[connection.n2 === 21 ? 0 : 1]
+                  );
+                  setDest3(
+                    Semester[2].node[connection.n3 === 23 ? 0 : 1]
+                  );
                 }}
               >
                 {Students[connection.id]}
@@ -114,6 +118,8 @@ export default function Timeline() {
         </Menu>
       </div>
 
+      {/* Timeline Graph rendering */}
+
       <div style={{ width: "100%", height: "100px", margin: "0 auto" }}>
         <HorizontalTimeline
           styles={{ outline: "#DFA867", foreground: "#19295C" }}
@@ -122,17 +128,10 @@ export default function Timeline() {
             setValue(index);
           }}
           values={VALUES}
-          getLabel={(value, index) => {
-            const semesterNames = [
-              "1st Sem",
-              "2nd Sem",
-              "3rd Sem",
-            ];
-            return semesterNames[index];
-          }}
-          isTouchEnabled={false}
-          isKeyboardEnabled={false}
-          showButtons={false}
+          getLabel={getLabel}
+          isTouchEnabled={true}
+          isKeyboardEnabled={true}
+          showButtons={true}
         />
       </div>
       <div style={{ textAlign: "center" }}>{description[value]}</div>
