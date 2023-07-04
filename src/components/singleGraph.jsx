@@ -12,15 +12,23 @@ export default function ConnectionGraph({ connection, onBack }) {
   function genGraph() {
     const nodes = [
       { id: id, student: Students[id] },
-      { id: n1, dest: Dest[n1 - 20] + (n1 === n3 ? " 1" : "") },
+      { id: n1, dest: Dest[n1 - 20] },
       { id: n2, dest: Dest[n2 - 20] },
-      { id: n3, dest: Dest[n3 - 20] + (n1 === n3 ? " 3" : "") },
     ];
 
     const links = [];
     links.push({ source: id, target: n1 });
     links.push({ source: n1, target: n2 });
-    links.push({ source: n2, target: n3 });
+
+
+    if( n1 === n3 ) {
+      nodes.push(...nodes, { id: n3 + 5, dest: Dest[n3 - 20] });
+      links.push({ source: n2, target: n3 + 5 });
+    }
+    else {
+      nodes.push(...nodes, { id: n3, dest: Dest[n3 - 20] });
+      links.push({ source: n2, target: n3 });
+    }
 
     return { nodes, links };
   }

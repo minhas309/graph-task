@@ -53,8 +53,10 @@ const Homepage = () => {
       <Box
         sx={{
           flexGrow: 1,
-          display: { md: "flex", xs: "none" },
+          display: { xs: "none" ,  md: "flex" },
           m: 3,
+          display:"flex",
+          alignItems:"center"
         }}
       >
         {activeGraph === "nodedGraph" && <NodedGraph />}
