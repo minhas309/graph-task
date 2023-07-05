@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+# Graph-task
 Let's imagine you're in a cool master's program and you get to go to different countries each semester.
 
 This task is all about creating a cool website that shows where everyone is going. You have to make it look awesome and easy to understand.
