@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import HorizontalTimeline from "react-horizontal-timeline";
-import { Connections, Semester, Students } from "./nodedGraph";
+import { Connections } from "./nodedGraph";
 import { Menu, MenuItem, Button, Tooltip, Box } from "@mui/material";
 import { Info } from "@mui/icons-material";
+import Students from '../utils/Students'
+import Semester from '../utils/Semester'
 
 export default function Timeline() {
   const [value, setValue] = useState(0);

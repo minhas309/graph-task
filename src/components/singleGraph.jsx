@@ -1,10 +1,9 @@
 //ConnectionGraph component
 import React, { useEffect, useState } from "react";
 import ForceGraph2D from "react-force-graph-3d";
-import NodedGraph, { Dest, Students } from "./nodedGraph";
+import Dest from '../utils/Dest'
+import Students from '../utils/Students'
 import { Button } from "@mui/material";
-import Homepage from "../pages/home";
-
 export default function ConnectionGraph({ connection, onBack }) {
   const { id, n1, n2, n3 } = connection;
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

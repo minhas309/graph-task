@@ -2,48 +2,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import { Info } from "@mui/icons-material";
-import { Box, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import ConnectionGraph from "./singleGraph";
+import Students from '../utils/Students'
+import Semester from '../utils/Semester'
+import Dest from '../utils/Dest'
 
 function random(val) {
   return Math.floor(Math.random() * val);
 }
 
 export const Connections = [];
-export const Semester = [
-  { name: "Sem1", node: "Norway", link: 20 },
-  { name: "Sem2", node: ["Spain", "France"], link: [21, 22] },
-  { name: "Sem3", node: ["Finland", "Norway"], link: [23, 20] }
-];
-export const Students = [
-  "Alice",
-  "Bob",
-  "Charlie",
-  "David",
-  "Eve",
-  "Frank",
-  "Grace",
-  "Henry",
-  "Isabella",
-  "Jack",
-  "Katherine",
-  "Liam",
-  "Mia",
-  "Noah",
-  "Olivia",
-  "Penny",
-  "Quentin",
-  "Ruby",
-  "Samuel",
-  "Tara"
-];
 
-export const Dest = [
-  "Norway",
-  "Spain",
-  "France",
-  "Finland",
-];
 
 export default function NodedGraph() {
   const fgRef = useRef();

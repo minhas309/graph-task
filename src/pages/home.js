@@ -3,7 +3,6 @@ import { Button, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import NodedGraph from "../components/nodedGraph";
 import Timeline from "../components/timelineGraph";
-import shadows from "@mui/material/styles/shadows";
 
 const Homepage = () => {
   const [activeGraph, setActiveGraph] = useState("nodedGraph");
