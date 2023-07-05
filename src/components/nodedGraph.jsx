@@ -1,5 +1,5 @@
 //nodedGraph component
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import { Info } from "@mui/icons-material";
 import { Box, Tooltip } from "@mui/material";
@@ -49,6 +49,19 @@ export default function NodedGraph() {
   const fgRef = useRef();
   const [selectedNode, setSelectedNode] = useState(null);
   const [selectedConnection, setSelectedConnection] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   function genRandomTree(N = 24) {
     const nodes = [...Array(N).keys()].map((i) => {
@@ -90,7 +103,7 @@ export default function NodedGraph() {
   }
 
   const data = genRandomTree(24);
-  const distance = 1900;
+  const distance = windowWidth < 600 ? 500 : 1000;
 
   const handleNodeClick = (node) => {
     setSelectedNode(node);
@@ -114,6 +127,9 @@ export default function NodedGraph() {
         backgroundColor="#222222" // Change background color here
         onNodeClick={handleNodeClick}
         onLinkClick={(link) => fgRef.current.emitParticle(link)}
+        width={windowWidth / 1.1}
+        height={750}
+        cameraDistance = {distance}
       />
     );
   };
@@ -130,57 +146,32 @@ export default function NodedGraph() {
         maxWidth: "90vw",
     }}
     >
-    <Box
-      sx={{
-        display: { xs: "none", md: "flex" },
-        m: 1,
+      <div
+  style={{
+    marginTop: "10px",
+    display: "flex",
+    marginBottom:"20px",
+  }}
+>
+  <Tooltip title="Notable Info" placement="top">
+    <div
+      style={{
+        backgroundColor: "rgba(25, 118, 210, 0.8)",
+        borderRadius: "5px",
+        color: "#fff",
+        padding: "5px 10px",
+        display: "flex",
+        maxWidth: "90%",
       }}
     >
-      {/* Desktop tooltip */}
-      <div style={{ marginTop: "10px" }}>
-        <Tooltip title="Notable Info" placement="top">
-          <div
-            style={{
-              backgroundColor: "rgba(25, 118, 210, 0.8)",
-              borderRadius: "5px",
-              color: "#fff",
-              padding: "5px 10px",
-              display: "flex",
-              width: "max-content",
-              marginBottom: "20px"
-            }}
-          >
-            <Info style={{ marginRight: "5px" }} /> Zoom in a little and hover over some nodes, Click on them too!!!
-          </div>
-        </Tooltip>
-      </div>
-    </Box>
+      <Info style={{ marginRight: "5px" }} />
+      <span style={{ flex: 1 }}>
+      Zoom in a little and hover over some nodes, Click on them too!!!
+      </span>
+    </div>
+  </Tooltip>
+</div>
 
-    <Box
-      sx={{
-        display: { xs: "flex", md: "none" },
-        m: 1,
-      }}
-    >
-      {/* Mobile tooltip */}
-      <div style={{ marginTop: "10px" }}>
-        <Tooltip title="Notable Info" placement="top">
-          <div
-            style={{
-              backgroundColor: "rgba(25, 118, 210, 0.8)",
-              borderRadius: "5px",
-              color: "#fff",
-              padding: "1px 2px",
-              display: "flex",
-              width: "max-content",
-              marginBottom: "20px"
-            }}
-          >
-            <Info style={{ marginRight: "1px" }} /> Zoom in a little and hover over some nodes, Click on them too!!!
-          </div>
-        </Tooltip>
-      </div>
-    </Box>
 
     {selectedConnection ? (
       <ConnectionGraph connection={selectedConnection} onBack={handleBack} />
