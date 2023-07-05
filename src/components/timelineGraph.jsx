@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import HorizontalTimeline from "react-horizontal-timeline";
 import { Connections, Semester, Students } from "./nodedGraph";
-import { Menu, MenuItem, Button, Tooltip } from "@mui/material";
+import { Menu, MenuItem, Button, Tooltip, Box } from "@mui/material";
 import { Info } from "@mui/icons-material";
 
 export default function Timeline() {
@@ -37,11 +37,11 @@ export default function Timeline() {
   return (
     <div
       style={{
-        width: "50%",
+        width: "90%",
         padding: "10px",
-        marginLeft: "150px",
+        marginLeft: "20px",
+        marginRight: "auto",
         marginBottom: "50px",
-        marginTop: "30px",
       }}
     >
       <div>
@@ -57,24 +57,30 @@ export default function Timeline() {
             {btnName}
           </Button>
         </Tooltip>
-        <div style={{ marginTop: "10px" }}>
-          <Tooltip title="Notable Info" placement="top">
-            <div
-              style={{
-                backgroundColor: "rgba(25, 118, 210, 0.8)",
-                borderRadius: "5px",
-                color: "#fff",
-                padding: "5px 10px",
-                display: "flex",
-                width: "max-content",
-                marginBottom: "20px",
-              }}
-            >
-              <Info style={{ marginRight: "5px" }} /> Select Student From
-              Dropdown menu to see the destination
-            </div>
-          </Tooltip>
-        </div>
+       <div
+  style={{
+    marginTop: "10px",
+    display: "flex",
+  }}
+>
+  <Tooltip title="Notable Info" placement="top">
+    <div
+      style={{
+        backgroundColor: "rgba(25, 118, 210, 0.8)",
+        borderRadius: "5px",
+        color: "#fff",
+        padding: "5px 10px",
+        display: "flex",
+        maxWidth: "90%",
+      }}
+    >
+      <Info style={{ marginRight: "5px" }} />
+      <span style={{ flex: 1 }}>
+        Select Student From Dropdown menu to see the destination
+      </span>
+    </div>
+  </Tooltip>
+</div>
 
         {/* Dropdown menu renders here */}
 
@@ -120,7 +126,7 @@ export default function Timeline() {
 
       {/* Timeline Graph rendering */}
 
-      <div style={{ width: "100%", height: "100px", margin: "0 auto" }}>
+      <Box sx={{ display: { xs: "flex", md: "none" }, width: "90%", height: "100px", marginLeft: "15px" }}>
         <HorizontalTimeline
           styles={{ outline: "#DFA867", foreground: "#19295C" }}
           index={value}
@@ -133,7 +139,23 @@ export default function Timeline() {
           isKeyboardEnabled={true}
           showButtons={true}
         />
-      </div>
+      </Box>
+
+      <Box sx={{ display: {xs: "none" , md: "flex" }, width: "70%", height: "100px", marginLeft: "15px" }}>
+        <HorizontalTimeline
+          styles={{ outline: "#DFA867", foreground: "#19295C" }}
+          index={value}
+          indexClick={(index) => {
+            setValue(index);
+          }}
+          values={VALUES}
+          getLabel={getLabel}
+          isTouchEnabled={true}
+          isKeyboardEnabled={true}
+          showButtons={true}
+        />
+      </Box>
+
       <div style={{ textAlign: "center" }}>{description[value]}</div>
     </div>
   );

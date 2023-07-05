@@ -8,25 +8,12 @@ import Container from "@mui/material/Container";
 import Tooltip from "@mui/material/Tooltip";
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-
-
 function ResponsiveAppBar() {
-
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: "white",
-        maxWidth: "100%"
-      }}
-      
-    >
-        
+    <AppBar position="static" sx={{ backgroundColor: "white" }}>
       <Container maxWidth="xl">
-        
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}></Box>
           <Typography
             variant="h5"
             noWrap
@@ -44,39 +31,38 @@ function ResponsiveAppBar() {
           >
             V A L I D
           </Typography>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open Repository">
               <IconButton
-              href="https://github.com/minhas309/graph-task"
-              sx={{ p: 0 }}>
+                href="https://github.com/minhas309/graph-task"
+                sx={{ p: 0 }}
+              >
                 <GitHubIcon />
               </IconButton>
             </Tooltip>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'Black',
-              textDecoration: 'none',
-              ml:2
-            }}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "black",
+                textDecoration: "none",
+                ml: 2
+              }}
             >
-            SOME COOL SITE NAME
-          </Typography>
-            </Box>
-
+              SOME COOL SITE NAME
+            </Typography>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;

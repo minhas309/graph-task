@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import { Info } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import ConnectionGraph from "./singleGraph";
 
 function random(val) {
@@ -119,7 +119,24 @@ export default function NodedGraph() {
   };
 
   return (
-    <div>
+    <div
+    style={{
+      width: "100%",
+        padding: "10px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: "30px",
+        marginBottom: "50px",
+        maxWidth: "90vw",
+    }}
+    >
+    <Box
+      sx={{
+        display: { xs: "none", md: "flex" },
+        m: 1,
+      }}
+    >
+      {/* Desktop tooltip */}
       <div style={{ marginTop: "10px" }}>
         <Tooltip title="Notable Info" placement="top">
           <div
@@ -137,12 +154,39 @@ export default function NodedGraph() {
           </div>
         </Tooltip>
       </div>
+    </Box>
 
-      {selectedConnection ? (
-        <ConnectionGraph connection={selectedConnection} onBack={handleBack} />
-      ) : (
-        <CameraOrbit />
-      )}
-    </div>
+    <Box
+      sx={{
+        display: { xs: "flex", md: "none" },
+        m: 1,
+      }}
+    >
+      {/* Mobile tooltip */}
+      <div style={{ marginTop: "10px" }}>
+        <Tooltip title="Notable Info" placement="top">
+          <div
+            style={{
+              backgroundColor: "rgba(25, 118, 210, 0.8)",
+              borderRadius: "5px",
+              color: "#fff",
+              padding: "1px 2px",
+              display: "flex",
+              width: "max-content",
+              marginBottom: "20px"
+            }}
+          >
+            <Info style={{ marginRight: "1px" }} /> Zoom in a little and hover over some nodes, Click on them too!!!
+          </div>
+        </Tooltip>
+      </div>
+    </Box>
+
+    {selectedConnection ? (
+      <ConnectionGraph connection={selectedConnection} onBack={handleBack} />
+    ) : (
+      <CameraOrbit />
+    )}
+  </div>
   );
 }
