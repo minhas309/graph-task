@@ -1,5 +1,5 @@
 //ConnectionGraph component
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ForceGraph2D from "react-force-graph-3d";
 import NodedGraph, { Dest, Students } from "./nodedGraph";
 import { Button } from "@mui/material";
@@ -7,7 +7,19 @@ import Homepage from "../pages/home";
 
 export default function ConnectionGraph({ connection, onBack }) {
   const { id, n1, n2, n3 } = connection;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   function genGraph() {
     const nodes = [
@@ -34,6 +46,7 @@ export default function ConnectionGraph({ connection, onBack }) {
   }
 
   const data = genGraph();
+  const distance = windowWidth < 600 ? 500 : 1000;
 
   return (
     <div style={{ position: "relative" }}>
@@ -64,6 +77,9 @@ export default function ConnectionGraph({ connection, onBack }) {
         linkDirectionalParticleColor={() => "#ffffff"}
         linkDirectionalParticleWidth={6}
         linkHoverPrecision={10}
+        width={windowWidth / 1.1}
+        height={750}
+        cameraDistance = {distance}
       />
     </div>
   );
